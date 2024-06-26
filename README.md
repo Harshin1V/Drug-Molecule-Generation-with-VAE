@@ -10,7 +10,7 @@ This example demonstrates how to use a CVAE to generate new molecules that could
 
 # Convolutional Variational Autoencoder:
 
-- A generative model which combines the strengths of **convolutional neural networks** and **variational autoencoders** .
+- A generative model that combines the strengths of **convolutional neural networks** and **variational autoencoders** .
 - **Variational Autoencoder (VAE)** works as an **unsupervised learning algorithm** that can learn a **latent representation** of data by encoding it into a **probabilistic distribution** and then **reconstructing** back using the convolutional layers which enables the model to **generate new**, **similar data points** .
 - The key working principles of a **CVAE** include the incorporation of convolutional layers, which are adept at **capturing spatial hierarchies within data, making them particularly well-suited for image-related tasks.**
 - Additionally, CVAEs utilize variational inference, introducing probabilistic elements to the encoding-decoding process. Instead of producing a **fixed** latent representation, a CVAE generates a **probability distribution** in the **latent space** , enabling the model to learn not just a **single** deterministic representation but a range of possible representations for each input. <br>
@@ -21,7 +21,7 @@ This example demonstrates how to use a CVAE to generate new molecules that could
 
 - VAEs are a type of generative model that can learn a latent representation of data and use it to generate new samples that share similar properties to the training data.
 - In drug discovery, VAEs can be trained on existing drug molecules and then used to generate new molecules with potentially desirable properties.
-- A generative model which combines the strengths of **convolutional neural networks** and **variational autoencoders** .
+- A generative model that combines the strengths of **convolutional neural networks** and **variational autoencoders** .
 
 
 # Data Preprocessing:
@@ -41,3 +41,13 @@ The training process minimizes the **reconstruction error** (difference between 
 # Generating New Molecules:
 
 - After training, the CVAE can be used to generate new SMILES strings by sampling from the latent space and decoding the samples.
+<br>
+
+# Conditional Variational Autoencoder (CVAE):
+
+- Goal: Learns a latent representation of data conditioned on specific input information. It can generate new samples based on that **additional information.**
+- Functionality: Similar to VAE with an additional step:
+  1. Conditional Input: Takes an **extra input** besides the original data. This input can be a label, category, or any additional information that helps guide the generation process.
+The encoder and decoder are modified to incorporate this conditional information.
+  2. Output: New data samples that not only resemble the training data but also reflect the provided condition. You have more control over the generated data's specific characteristics.
+- Applications: Image generation with specific attributes (e.g., generating images of cats with sunglasses), text generation with a specific style or topic, targeted anomaly detection, data augmentation.
