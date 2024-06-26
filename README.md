@@ -53,7 +53,9 @@ The encoder and decoder are modified to incorporate this conditional information
 - Applications: Image generation with specific attributes (e.g., generating images of cats with sunglasses), text generation with a specific style or topic, targeted anomaly detection, data augmentation.
 
 <br>
-- **ZINC** contains information about a vast number of commercially available compounds. This includes:
+
+# ZINC 
+contains information about a vast number of commercially available compounds. This includes:
 1. SMILES Strings: A text format for representing the structure of molecules. SMILES strings are compact and convenient for storing and manipulating molecular information.
 2. Molecular Properties: ZINC provides various properties for each compound, including:
   - logP: This is the water-octanol partition coefficient, which measures how well a compound dissolves in water vs. octanol (an organic solvent). It's important for drug discovery as it affects how a drug interacts with the body.
