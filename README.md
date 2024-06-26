@@ -18,6 +18,7 @@ This example demonstrates how to use a CVAE to generate new molecules that could
   - Variational Inference: The introduction of variational inference allows CVAE to capture uncertainty in the latent space to generate a probability distribution rather than producing a single deterministic latent representation, providing a richer understanding of the data distribution and enabling the model to explore diverse latent spaces.
   - Reparameterization Trick: It involves sampling from the learned latent distribution during the training process, enabling the model to backpropagate gradients effectively
 <br>
+
 - VAEs are a type of generative model that can learn a latent representation of data and use it to generate new samples that share similar properties to the training data.
 - In drug discovery, VAEs can be trained on existing drug molecules and then used to generate new molecules with potentially desirable properties.
 - A generative model which combines the strengths of **convolutional neural networks** and **variational autoencoders** .
