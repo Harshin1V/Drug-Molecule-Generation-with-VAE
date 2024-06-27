@@ -195,3 +195,38 @@ def graph_to_molecule(graph):
 
     return molecule
 ```
+- These two functions, **smiles_to_graph** and **graph_to_molecule**, are designed to convert between SMILES strings and molecular graph representations suitable for deep learning models. Here's a breakdown of each function:
+
+1. smiles_to_graph(smiles):
+- Input: A SMILES string representing a molecule.
+- Conversion Steps:
+- Uses Chem.MolFromSmiles to create an RDKit molecule object from the SMILES string.
+    - Initializes two tensors:
+    - adjacency: A 3D tensor of size (BOND_DIM, NUM_ATOMS, NUM_ATOMS). This tensor will represent the connections between atoms and the bond types.
+    - features: A 2D tensor of size (NUM_ATOMS, ATOM_DIM). This tensor will represent features associated with each atom.
+- Iterates over each atom in the molecule:
+    - Gets the atom's index (i), atomic symbol, and corresponding feature vector based on the atom mapping dictionary.
+- Iterates over the atom's neighbors:
+    - Gets the neighbor's index (j) and the bond type between them.
+    - Uses the bond mapping dictionary to get the corresponding bond type index.
+    - Sets the adjacency tensor element at the specific bond type channel, atom indices (i, j), and their reversed order (j, i) to 1, indicating a bond connection.
+- Handles "no bond" and "no atom" cases:
+    - In the adjacency tensor's last channel (representing "non-bond"), sets elements to 1 where there are no bonds between atoms.
+    - In the features tensor's last column (representing "non-atom"), sets elements to 1 for rows where the atom type is "non-atom" (based on feature vector sum).
+Returns the adjacency and features tensors, representing the molecular graph.
+2. graph_to_molecule(graph):
+- Input: A tuple containing the adjacency and features tensors from the smiles_to_graph function.
+- Conversion Steps:
+    1. Unpacks the graph (adjacency and features tensors).
+    2. Identifies and removes "no atom" and atom entries with no bonds based on the features and adjacency tensors.
+    3. Creates an RDKit RWMol object, allowing for molecule editing.
+    4. Iterates over the remaining features (excluding "non-atom" entries) and creates corresponding atoms in the molecule based on the atom type mapping.
+    5. Iterates over the upper triangle (excluding diagonal and "non-bond" channel) of the adjacency tensor to identify connected atom pairs and their corresponding bond type index.
+    6. For each connected atom pair:
+        - Skips entries with the same atom index or "non-bond" type.
+        - Adds a bond between the atoms in the molecule based on the retrieved bond type.
+    7. Sanitizes the molecule using Chem.SanitizeMol. This ensures the generated molecule has a valid chemical structure.
+    8. If sanitization fails, returns None.
+    - Returns the sanitized RDKit molecule object.
+ 
+- Overall, these functions provide a way to convert between SMILES strings (textual representation) and a graph-based representation suitable for deep learning models. The graph representation uses tensors to encode atom features and connections with bond types.
