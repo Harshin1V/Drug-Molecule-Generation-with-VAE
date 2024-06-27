@@ -230,3 +230,23 @@ Returns the adjacency and features tensors, representing the molecular graph.
     - Returns the sanitized RDKit molecule object.
  
 - Overall, these functions provide a way to convert between SMILES strings (textual representation) and a graph-based representation suitable for deep learning models. The graph representation uses tensors to encode atom features and connections with bond types.
+
+```
+train_df = df.sample(frac=0.75,random_state=42) #random state is a seed value
+test_df = df.drop(train_df.index)
+train_df.reset_index(drop=True, inplace=True)
+test_df.reset_index(drop=True, inplace=True)
+```
+1. ``` train_df = df.sample(frac=0.75, random_state=42) ```:
+This line creates a new DataFrame called train_df.
+It uses the sample function from Pandas to randomly sample 75% (specified by frac=0.75) of the rows from the original DataFrame df.
+random_state=42 is an optional argument that sets a seed value for the random sampling process. This ensures reproducibility - if you run this line multiple times with the same seed, you'll get the same split between training and testing data.
+2. ``` test_df = df.drop(train_df.index)```:
+This line creates another new DataFrame called test_df.
+It uses the drop function from Pandas to remove all rows from df that are present in the index of train_df. Essentially, it keeps the remaining 25% of the data that wasn't selected for training.
+3. ```train_df.reset_index(drop=True, inplace=True)```:
+This line resets the index of the train_df DataFrame.
+drop=True specifies that the old index should be removed and replaced with a new zero-based integer index.
+inplace=True modifies the train_df DataFrame itself instead of creating a new copy.
+4. ```test_df.reset_index(drop=True, inplace=True)```:
+This line performs the same operation as the previous line, but on the test_df DataFrame.
